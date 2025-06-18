@@ -28,7 +28,7 @@ class ShortenedUrl < ApplicationRecord
   end
 
   def set_expiration
-    self.expiration = expiration ? Time.at(expiration).utc : Time.current.utc + 3600
+    self.expiration = expiration ? Time.at(expiration).utc : nil
   end
 
   def generate_unique_code

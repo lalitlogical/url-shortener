@@ -104,6 +104,23 @@ curl -X POST http://localhost:3000/shortened_urls \
 curl http://localhost:3000/abc123?passcode=secret123
 ```
 
+## 📸 Screenshots
+
+### 🔗 Dashboard View
+
+<img src="screenshots/dashboard.png" alt="URL Shortener Dashboard" width="100%" />
+
+The dashboard provides a clean, tabular interface to view all shortened URLs created in the system. Each row displays:
+
+- The short code generated (e.g., `abc123`)
+- The original long URL
+- Expiration time (if set)
+- Whether the link is passcode protected
+- Number of times the link has been clicked
+- A direct preview button to open the shortened URL (with passcode hint if needed)
+
+This makes it easy to manage and monitor link activity without needing API calls or external tools.
+
 ## 🛡️ Security Considerations
 
 | Concern                | Implementation |

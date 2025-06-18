@@ -1,0 +1,32 @@
+<h2 class="mb-4">📋 Your Shortened URLs</h2>
+
+<table class="table table-bordered table-striped table-hover">
+  <thead class="table-dark">
+    <tr>
+      <th>#</th>
+      <th>Short Code</th>
+      <th>Original URL</th>
+      <th>Expires At</th>
+      <th>Passcode</th>
+      <th>Click Count</th>
+      <th>Preview</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @urls.each_with_index do |url, i| %>
+      <tr>
+        <td><%= i + 1 %></td>
+        <td><code><%= url.short_code %></code></td>
+        <td class="text-break"><%= url.original_url %></td>
+        <td><%= url.expiration&.strftime("%Y-%m-%d %H:%M") || 'Never' %></td>
+        <td><%= url.passcode_digest.present? ? '🔐' : '—' %></td>
+        <td><%= url.click_count || 0 %></td>
+        <td>
+          <a href="/<%= url.short_code %><%= url.passcode_digest.present? ? '?passcode=YOUR_PASSCODE' : '' %>" target="_blank" class="btn btn-sm btn-primary">
+            Open
+          </a>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

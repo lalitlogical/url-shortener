@@ -108,7 +108,7 @@ curl http://localhost:3000/abc123?passcode=secret123
 
 ### 🔗 Dashboard View
 
-<img src="screenshots/dashboard.png" alt="URL Shortener Dashboard" width="100%" />
+<img src="screenshots/dashboard-example.png" alt="URL Shortener Dashboard" width="100%" />
 
 The dashboard provides a clean, tabular interface to view all shortened URLs created in the system. Each row displays:
 

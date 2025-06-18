@@ -9,7 +9,7 @@ class ShortenedUrl < ApplicationRecord
   # Virtual attribute for plain passcode input
   attr_accessor :passcode
 
-  before_save :set_expiration
+  before_create :set_expiration
   before_save :set_passcode_digest
   before_validation :generate_unique_code, on: :create
 
@@ -28,7 +28,7 @@ class ShortenedUrl < ApplicationRecord
   end
 
   def set_expiration
-    self.expiration = Time.current.utc + 3600 unless expiration
+    self.expiration = expiration ? Time.at(expiration).utc : Time.current.utc + 3600
   end
 
   def generate_unique_code

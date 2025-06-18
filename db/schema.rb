@@ -25,15 +25,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_18_053341) do
   end
 
   create_table "shortened_urls", force: :cascade do |t|
-    t.string "original_url"
-    t.string "short_code"
+    t.string "original_url", null: false
+    t.string "short_code", null: false
     t.boolean "is_active", default: true
     t.datetime "expiration"
-    t.integer "click_count"
+    t.integer "click_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "passcode_digest"
-    t.index ["short_code"], name: "index_shortened_urls_on_short_code"
+    t.index ["short_code"], name: "index_shortened_urls_on_short_code", unique: true
   end
 
   add_foreign_key "clicks", "shortened_urls"

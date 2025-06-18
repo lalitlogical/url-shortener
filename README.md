@@ -56,7 +56,7 @@ Used by companies like **Bitly**, **Google**, **Amazon**, **LinkedIn**, and **ma
 ### 1. 📦 Clone and Install
 
 ```bash
-git clone https://github.com/yourname/url-shortener.git
+git clone https://github.com/lalitlogical/url-shortener
 cd url-shortener
 bundle install
 ```
@@ -89,7 +89,13 @@ bundle exec sidekiq
 ```bash
 curl -X POST http://localhost:3000/shortened_urls \
   -H "Content-Type: application/json" \
-  -d '{"original_url": "https://www.netflix.com", "expiration": 1750224987, "passcode": "secret123"}'
+  -d '{
+    "shortened_url": {
+      "original_url": "https://www.netflix.com",
+      "expiration": 1750224987,
+      "passcode": "secret123"
+    }
+  }'
 ```
 
 ### ↪️ Access the Short URL

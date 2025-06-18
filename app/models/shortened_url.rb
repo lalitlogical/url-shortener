@@ -4,7 +4,13 @@ class ShortenedUrl < ApplicationRecord
   validates :original_url, presence: true
   validates :short_code, uniqueness: true
 
+  has_secure_password :passcode, validations: false # enables `passcode=` and `authenticate`
+
+  # Virtual attribute for plain passcode input
+  attr_accessor :passcode
+
   before_save :set_expiration
+  before_save :set_passcode_digest
   before_validation :generate_unique_code, on: :create
 
   scope :active, -> { where(is_active: true).where('expiration IS NULL OR expiration > ?', Time.current.utc) }
@@ -14,6 +20,12 @@ class ShortenedUrl < ApplicationRecord
   end
 
   private
+  
+  def set_passcode_digest
+    if passcode.present?
+      self.passcode_digest = BCrypt::Password.create(passcode)
+    end
+  end
 
   def set_expiration
     self.expiration = Time.current.utc + 3600 unless expiration

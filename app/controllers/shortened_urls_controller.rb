@@ -2,7 +2,7 @@ class ShortenedUrlsController < ApplicationController
   def create
     url = ShortenedUrl.new(url_params)
     if url.save
-      render json: { short_url: request.base_url + '/' + url.short_code }, status: :created
+      render json: { short_url: request.base_url + '/' + url.short_code, passcode_protected: url.passcode_digest.present? }, status: :created
     else
       render json: { errors: url.errors.full_messages }, status: :unprocessable_entity
     end
@@ -20,6 +20,6 @@ class ShortenedUrlsController < ApplicationController
   private
 
   def url_params
-    params.require(:shortened_url).permit(:original_url, :expiration)
+    params.require(:shortened_url).permit(:original_url, :expiration, :passcode)
   end
 end

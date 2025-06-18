@@ -52,3 +52,4 @@ gem 'redis'
 gem 'rack-attack'
 gem 'devise'       # Optional: if you want authentication
 gem 'friendly_id'  # For readable slugs
+gem 'byebug'

@@ -30,5 +30,7 @@ module UrlShortener
     config.api_only = true
 
     config.active_job.queue_adapter = :sidekiq
+    config.time_zone = 'UTC'
+    config.active_record.default_timezone = :utc
   end
 end

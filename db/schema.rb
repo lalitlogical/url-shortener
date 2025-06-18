@@ -27,7 +27,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_18_042743) do
   create_table "shortened_urls", force: :cascade do |t|
     t.string "original_url"
     t.string "short_code"
-    t.boolean "is_active"
+    t.boolean "is_active", default: true
     t.datetime "expiration"
     t.integer "click_count"
     t.datetime "created_at", null: false

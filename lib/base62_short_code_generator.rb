@@ -1,4 +1,4 @@
-require 'securerandom'
+require "securerandom"
 
 module Base62ShortCodeGenerator
   CHARSET = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".chars.freeze
@@ -9,7 +9,7 @@ module Base62ShortCodeGenerator
   def self.encode(num)
     return CHARSET[0] if num == 0
 
-    str = ''
+    str = ""
     while num > 0
       str.prepend(CHARSET[num % BASE])
       num /= BASE
@@ -19,16 +19,16 @@ module Base62ShortCodeGenerator
 
   # Generates a short code using Redis counter
   # Fallbacks to UUID-based base62 if Redis fails
-  def self.generate(length: 6)
+  def self.generate(id: nil, length: 6)
     begin
-      id = $redis.incr(REDIS_KEY)
+      id ||= $redis.incr(REDIS_KEY)
       code = encode(id)
 
       # pad to fixed length if needed
       code.rjust(length, CHARSET[0])
     rescue => e
       puts "Redis unavailable, using fallback: #{e.message}"
-      fallback = SecureRandom.uuid.delete('-').to_i(16)
+      fallback = SecureRandom.uuid.delete("-").to_i(16)
       encode(fallback)[0...length]
     end
   end

@@ -13,14 +13,14 @@ class ShortenedUrl < ApplicationRecord
   before_save :set_passcode_digest
   before_validation :generate_unique_code, on: :create
 
-  scope :active, -> { where(is_active: true).where('expiration IS NULL OR expiration > ?', Time.current.utc) }
+  scope :active, -> { where(is_active: true).where("expiration IS NULL OR expiration > ?", Time.current.utc) }
 
   def expired?
     expiration && expiration < Time.current.utc
   end
 
   private
-  
+
   def set_passcode_digest
     if passcode.present?
       self.passcode_digest = BCrypt::Password.create(passcode)

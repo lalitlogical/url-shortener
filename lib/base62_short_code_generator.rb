@@ -19,7 +19,7 @@ module Base62ShortCodeGenerator
 
   # Generates a short code using Redis counter
   # Fallbacks to UUID-based base62 if Redis fails
-  def self.generate(id: nil, length: 6)
+  def self.generate(id = nil, length: 6)
     begin
       id ||= $redis.incr(REDIS_KEY)
       code = encode(id)
